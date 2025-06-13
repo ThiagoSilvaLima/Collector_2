@@ -1,0 +1,51 @@
+enum ArchiveType {
+  IMAGE
+  BOOK
+}
+
+interface Content {
+  id: ID!
+  name: String!
+  url_content: String!
+  archiveType: ArchiveType!
+}
+
+type Book implements Content {
+  id: ID!
+  name: String!
+  url_content: String!
+  url_cover: String
+  archiveType: ArchiveType!
+}
+
+type ImageArt implements Content {
+  id: ID!
+  name: String!
+  url_content: String!
+  archiveType: ArchiveType!
+}
+
+type Query {
+  getAllContents: [Content!]!
+  getAllBooks: [Book!]!
+  getBook(name: String, id: ID): Book
+  getAllImages: [ImageArt!]!
+  getImage(name: String, id: ID): ImageArt
+}
+
+type Mutation {
+  createBook(
+    name: String!
+    url_content: String!
+    url_cover: String
+  ): Book!
+
+  deleteBook(id: ID!): Book!
+
+  createImage(
+    name: String!
+    url_content: String!
+  ): ImageArt!
+
+  deleteImage(id: ID!): ImageArt!
+}
